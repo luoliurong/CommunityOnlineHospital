@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<jianchajianyan>
+	<categories>
+		<jiancha name="检查">
+			<items>
+				<item>诊察费</item>
+				<item>查体费</item>
+				<item>TCD费</item>
+				<item>检查费</item>
+				<item>会诊费</item>
+				<item>彩超费</item>
+				<item>B超费</item>
+				<item>CT费</item>
+				<item>放射费</item>
+			</items>
+		</jiancha>
+		<jianyan name="检验">
+			<items>
+				<item>化验费</item>
+			</items>
+		</jianyan>
+		<qita name="其他">
+			<items>
+				<item>出车费</item>
+				<item>空调费</item>
+				<item>护理费</item>
+			</items>
+		</qita>
+	</categories>
+</jianchajianyan>
