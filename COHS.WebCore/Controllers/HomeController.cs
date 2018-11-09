@@ -1,4 +1,5 @@
-﻿using COHS.AppServices.Interfaces;
+﻿using AutoMapper;
+using COHS.AppServices.Interfaces;
 using COHS.WebCore.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -9,9 +10,12 @@ namespace COHS.WebCore.Controllers
 	public class HomeController : Controller
     {
 		private IAppUserService userService;
-		public HomeController(IAppUserService userService)
+		private IMapper mapper;
+
+		public HomeController(IAppUserService userService, IMapper mapper)
 		{
 			this.userService = userService;
+			this.mapper = mapper;
 		}
 
         public IActionResult Index()
@@ -22,20 +26,7 @@ namespace COHS.WebCore.Controllers
 			{
 				foreach (var user in userDto)
 				{
-					users.Add(new AppUserViewModel() {
-						UserId = user.UserId,
-						UserName= user.UserName,
-						Password=user.Password,
-						Title = user.Title,
-						RealName = user.RealName,
-						ContactPhone = user.ContactPhone,
-						ContactAddress = user.ContactAddress,
-						UrgentContactPerson = user.UrgentContactPerson,
-						UrgentContactPhone = user.UrgentContactPhone,
-						HospitalName = user.HospitalName,
-						CreateDate = user.CreateDate,
-						ApproveFlag = user.ApproveFlag
-					});
+					users.Add(mapper.Map<AppUserViewModel>(user));
 				}
 			}
             return View(users);

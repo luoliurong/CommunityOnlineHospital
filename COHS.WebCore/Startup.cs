@@ -1,4 +1,7 @@
 ﻿using AspNetCoreRateLimit;
+using AutoMapper;
+using COHS.AppServices;
+using COHS.AppServices.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -6,8 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using COHS.AppServices.Interfaces;
-using COHS.AppServices;
+using System;
 
 namespace COHS.WebCore
 {
@@ -36,7 +38,16 @@ namespace COHS.WebCore
 			// configuration for RateLimit ends.
 			services.AddAntiforgery();
 			ConfigureIoc(services);
-			services.AddMvc();
+			services.AddAutoMapper();
+			// configuration for using Session starts
+			services.AddDistributedMemoryCache();
+			services.AddSession(options => {
+				options.IdleTimeout = TimeSpan.FromSeconds(20);
+				options.Cookie.HttpOnly = true;
+			});
+			// configuration for using Session ends.
+
+			services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request procesing pipeline.
@@ -72,6 +83,7 @@ namespace COHS.WebCore
 			}
 
 			app.UseFileServer();
+			app.UseSession();
 			app.UseMvc(ConfigureRoute);
 		}
 

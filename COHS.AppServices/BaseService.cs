@@ -22,12 +22,6 @@ namespace COHS.AppServices
 			get { return dbService.GetDbConnection(); }
 		}
 
-		/// <summary>
-		/// generate serial number of a table based on its key.
-		/// </summary>
-		/// <param name="tableName"></param>
-		/// <param name="keyName"></param>
-		/// <returns></returns>
 		public string GetSerialStringOfTable(string tableName, string keyName)
 		{
 			lock (syncObj)
@@ -78,13 +72,6 @@ namespace COHS.AppServices
 						}
 					}
 				}
-
-				//序列号定义为numeric(3, 0)
-				if (newSerialNo > 999)
-				{
-					newSerialNo = 997;
-				}
-
 				return newSerialNo;
 			}
 		}
